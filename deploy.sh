@@ -1,4 +1,3 @@
-docker container rm -f $(docker ps -aq)
 docker build -t chess .
-docker container run --name chessApp -e AUTHOR="Jackson Peven" -d -P chess
-docker container ls
+docker run --rm --name chessApp -e AUTHOR="Jackson Peven" -d -p 8080:80 chess
+docker ls
