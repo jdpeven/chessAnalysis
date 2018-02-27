@@ -14,7 +14,7 @@ def parseGame(fileName):
     
 
 def main():
-    name = "./games/2389022681-PJRoastbeef_vs_jdpeven-2017_10_24.pgn"
-    parseGame(name)
-
+    #name = "./games/2389022681-PJRoastbeef_vs_jdpeven-2017_10_24.pgn"
+    #parseGame(name)
+    print("hello")
 main()

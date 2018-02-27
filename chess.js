@@ -1,5 +1,11 @@
-function printBoard(){
-    for (var i=0; i< 64; i++){
-        document.getElementById("mainChessBoard").appendChild(document.createElement("div")).style.backgroundColor = parseInt((i / 8) + i) % 2 == 0 ? '#ababab' : 'white';    
-}
+
+function buttonPressed(){
+    var req = "https://api.chess.com/pub/player/" + document.getElementById("userName").value;
+    //var req = document.getElementById("userName").value;
+    document.getElementById("url").innerHTML = req;
+    //alert("hello");
+};
+
+document.getElementById("myButton").onclick = function(){
+    buttonPressed();
 }
