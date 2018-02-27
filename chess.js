@@ -1,7 +1,7 @@
 
 //https://scotch.io/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 function buttonPressed(){
-    var url = "https://api.chess.com/pub/player/" + document.getElementById("userNameInput").value;
+    var url = "https://api.chess.com/pub/player/" + $("#userNameInput").val();
     fetch(url)
         .then((resp) => resp.json())
         .then(function(data){
@@ -12,8 +12,9 @@ function buttonPressed(){
             }
             else
             {
-                console.log(data);
+                //console.log(data);
                 updateUserInfo(data);
+                getArchives(document.getElementById("userNameInput").value);
             }
         })
         .catch(function(error) {
@@ -39,9 +40,19 @@ function updateUserInfo(data)
         document.getElementById("followers").innerHTML = "Followers: " + data["followers"];
         document.getElementById("location").innerHTML = "Location: " + data["location"];
     }
+};
 
+function getArchives(userName)
+{
+    var url = "https://api.chess.com/pub/player/" + userName + "/games/archives";
+    fetch(url)
+        .then((resp) => resp.json())
+        .then(function(data){
+            console.log(data)
+
+        })
 }
 
-document.getElementById("myButton").onclick = function(){
+$("#myButton").click(function(){
     buttonPressed();
-}
+})
