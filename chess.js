@@ -1,56 +1,64 @@
 
 //https://scotch.io/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 function buttonPressed(){
-    var url = "https://api.chess.com/pub/player/" + $("#userNameInput").val();
-    fetch(url)
-        .then((resp) => resp.json())
-        .then(function(data){
-            if(data["code"] == 0)
-            {
-                //alert("error");
-                updateUserInfo(null);
-            }
-            else
-            {
-                //console.log(data);
-                updateUserInfo(data);
-                getArchives(document.getElementById("userNameInput").value);
-            }
-        })
-        .catch(function(error) {
-            alert(error);
-            console.log(error);
-        })
-    //alert("hello");
+    var myUrl = "https://api.chess.com/pub/player/" + $("#userNameInput").val();
+    $.ajax({
+        url: myUrl,
+        error: function() {
+            updateUserInfo(null)
+            alert("Invalid username");
+        },
+        success: function(data) {
+            updateUserInfo(data);
+            getArchives($("#userNameInput").val());
+            //console.log(data);
+        }
+    });
 };
 
 function updateUserInfo(data)
 {
     if(data == null)
     {
-        document.getElementById("url").innerHTML = "https://api.chess.com/pub/player/";
-        document.getElementById("name").innerHTML = "User Name: ";
-        document.getElementById("followers").innerHTML = "Followers: ";
-        document.getElementById("location").innerHTML = "Location: ";
+        $("#url").text("https://api.chess.com/pub/player/");
+        $("#name").text("User Name: ");
+        $("#followers").text("Followers: ");
+        $("#location").text("Location: ");
     }
     else 
     {
-        document.getElementById("url").innerHTML = "https://api.chess.com/pub/player/" + document.getElementById("userNameInput").value;
-        document.getElementById("name").innerHTML = "User Name: " + data["username"];
-        document.getElementById("followers").innerHTML = "Followers: " + data["followers"];
-        document.getElementById("location").innerHTML = "Location: " + data["location"];
+        $("#url").text("https://api.chess.com/pub/player/" + $("userNameInput").val());
+        $("#name").text("User Name: " + data["username"]);
+        $("#followers").text("Followers: " + data["followers"]);
+        $("#location").text("Location: " + data["location"]);
     }
 };
 
 function getArchives(userName)
 {
-    var url = "https://api.chess.com/pub/player/" + userName + "/games/archives";
-    fetch(url)
-        .then((resp) => resp.json())
-        .then(function(data){
-            console.log(data)
+    var monthDict = {"01" : "January", "02" : "February", "03" : "March", "04" : "April", "05" : "May", "06" : "June", "07" : "July", 
+            "08" : "August", "09" : "September", "10" : "October", "11" : "November", "12" : "December"};
+    var endpointArr;
+    var myUrl = "https://api.chess.com/pub/player/" + userName + "/games/archives";
+    $.ajax({
+        url: myUrl,
+        error: function() {
+            alert("Archives not found");
+        },
+        success: function(data) {
+            //console.log(data["archives"]);
+            endpointArr = data["archives"];
+            for(var i = 0; i < endpointArr.length; i++)
+            {
+                var splitURL = endpointArr[i].split('/');
+                var len = splitURL.length;
 
-        })
+                $("#archives").append('<li>'+monthDict[splitURL[len - 1]] + ' ' + splitURL[len-2]+'</li>');
+                //console.log(data["archives"][i]);
+            }
+            $("#archives").selectable();
+        }
+    });
 }
 
 $("#myButton").click(function(){
