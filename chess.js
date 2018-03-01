@@ -53,10 +53,10 @@ function getArchives(userName)
                 var splitURL = endpointArr[i].split('/');
                 var len = splitURL.length;
 
-                $("#archives").append('<h3>' + monthDict[splitURL[len - 1]] + ' ' + splitURL[len-2] + '</h3><div id=#'+monthDict[splitURL[len - 1]] + splitURL[len-2] +'><p>'+endpointArr[i]+'</p></div>');
+                $("#archives").append('<h3>' + monthDict[splitURL[len - 1]] + ' ' + splitURL[len-2] + '</h3><div id='+monthDict[splitURL[len - 1]] + splitURL[len-2] +'><p>'+endpointArr[i]+'</p></div>');
                 //console.log(data["archives"][i]);
             }
-            console.log($("#archives"))
+            console.log($("#archives").html())
             $("#archives").accordion();
 
             for(var i = 0; i < endpointArr.length; i++)
@@ -69,6 +69,7 @@ function getArchives(userName)
 
 function populateMonthData(endpoint)
 {
+    //should check to see if I've pulled the data before. If I have, no need to run this again
     var monthDict = {"01" : "January", "02" : "February", "03" : "March", "04" : "April", "05" : "May", "06" : "June", "07" : "July", 
             "08" : "August", "09" : "September", "10" : "October", "11" : "November", "12" : "December"};
     var splitURL = endpoint.split('/');
@@ -82,7 +83,10 @@ function populateMonthData(endpoint)
         },
         success: function(data)
         {
-            $("#"+myID + " p").text(myID);
+            var gameArr = data["games"]
+
+            console.log(data)
+            $("#"+myID).append('<p>Total games: '+gameArr.length+'</p>');
             //alert("success");
         }
 
