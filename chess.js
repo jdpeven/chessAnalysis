@@ -99,6 +99,32 @@ function analyzeMonthData(myID, gameArr)
     $("#"+myID).append(t);
     //console.log($("#"+myID).html());
 
+    //header
+    var y = document.createElement("TR");
+    y.setAttribute("id", myID+"headerRow");
+    $("#"+myID+"Table").append(y);
+
+    var z = document.createElement("TD");
+    var node = document.createTextNode("Index");
+    z.append(node);
+    node = document.createTextNode("White");
+    z.append(node);
+    node = document.createTextNode("Name");
+    z.append(node);
+    node = document.createTextNode("Elo");
+    z.append(node);
+    node = document.createTextNode("Black");
+    z.append(node);
+    node = document.createTextNode("Name");
+    z.append(node);
+    node = document.createTextNode("Elo");
+    z.append(node);
+    node = document.createTextNode("Winner");
+    z.append(node);
+    //console.log(z.html())
+    $("#"+myID+"headerRow").append(z);
+    //end header
+
     for(var i = 0; i < gameArr.length; i++)
     {
         var y = document.createElement("TR");
@@ -110,7 +136,7 @@ function analyzeMonthData(myID, gameArr)
         z.append(node);
         $("#"+myID+i.toString()+"myTr").append(z);
     }
-    console.log($("#"+myID).html());
+    //console.log($("#"+myID).html());
 
 }
 
