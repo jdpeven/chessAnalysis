@@ -107,19 +107,37 @@ function analyzeMonthData(myID, gameArr)
     var z = document.createElement("TD");
     var node = document.createTextNode("Index");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
+    node = document.createTextNode("Date");
+    z = document.createElement("TD");
+    z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("White");
+    z = document.createElement("TD");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("Name");
+    z = document.createElement("TD");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("Elo");
+    z = document.createElement("TD");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("Black");
+    z = document.createElement("TD");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("Name");
+    z = document.createElement("TD");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("Elo");
+    z = document.createElement("TD");
     z.append(node);
+    $("#"+myID+"headerRow").append(z);
     node = document.createTextNode("Winner");
+    z = document.createElement("TD");
     z.append(node);
     //console.log(z.html())
     $("#"+myID+"headerRow").append(z);
@@ -132,7 +150,7 @@ function analyzeMonthData(myID, gameArr)
         $("#"+myID+"Table").append(y);
 
         var z = document.createElement("TD");
-        var node = document.createTextNode("cell");
+        var node = document.createTextNode(i.toString());
         z.append(node);
         $("#"+myID+i.toString()+"myTr").append(z);
     }
