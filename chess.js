@@ -56,7 +56,7 @@ function getArchives(userName)
                 $("#archives").append('<h3>' + monthDict[splitURL[len - 1]] + ' ' + splitURL[len-2] + '</h3><div id='+monthDict[splitURL[len - 1]] + splitURL[len-2] +'><p>'+endpointArr[i]+'</p></div>');
                 //console.log(data["archives"][i]);
             }
-            console.log($("#archives").html())
+            //console.log($("#archives").html())
             $("#archives").accordion();
 
             for(var i = 0; i < endpointArr.length; i++)
@@ -75,23 +75,44 @@ function populateMonthData(endpoint)
     var splitURL = endpoint.split('/');
     var len = splitURL.length;
     var myID = monthDict[splitURL[len - 1]] + splitURL[len-2]
-    console.log(myID);
+    //console.log(myID);
     $.ajax({
         url: endpoint,
         error: function(){
-            //alert("error");
+            alert("error");
         },
         success: function(data)
         {
             var gameArr = data["games"]
-
-            console.log(data)
+            //console.log(data)
             $("#"+myID).append('<p>Total games: '+gameArr.length+'</p>');
+            analyzeMonthData(myID, gameArr);
             //alert("success");
         }
-
     })
 };
+
+function analyzeMonthData(myID, gameArr)
+{
+    var t = document.createElement("TABLE");
+    t.setAttribute("id", myID+"Table");
+    $("#"+myID).append(t);
+    //console.log($("#"+myID).html());
+
+    for(var i = 0; i < gameArr.length; i++)
+    {
+        var y = document.createElement("TR");
+        y.setAttribute("id", myID+i.toString()+"myTr");
+        $("#"+myID+"Table").append(y);
+
+        var z = document.createElement("TD");
+        var node = document.createTextNode("cell");
+        z.append(node);
+        $("#"+myID+i.toString()+"myTr").append(z);
+    }
+    console.log($("#"+myID).html());
+
+}
 
 $("#myButton").click(function(){
     buttonPressed();
