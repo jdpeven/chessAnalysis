@@ -151,10 +151,15 @@ function analyzeMonthData(myID, gameArr)
         y.setAttribute("id", myID+i.toString()+"myTr");
         $("#"+myID+"Table").append(y);
 
+        //index
         var z = document.createElement("TD");
         var node = document.createTextNode(i.toString());
         z.append(node);
         $("#"+myID+i.toString()+"myTr").append(z);
+
+        //date
+
+
     }
     //console.log($("#"+myID).html());
 
